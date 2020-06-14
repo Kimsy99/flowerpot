@@ -1,7 +1,9 @@
 #include <windows.h>
 #include <GL/glut.h>
+#include <iostream>
+using namespace std;
 
 int main()
 {
-  abdsasdgafgag
+	cout << "Hello World!" << endl;
 }
