@@ -4,13 +4,15 @@
 #include "util/camera.h"
 #include "controller/keycontroller.h"
 #include "controller/mousecontroller.h"
+#include "model/Pot.h"
+#include "model/Stem.h"
 
 // Global attributes
 static const int WINDOW_WIDTH = 800;
 static const int WINDOW_HEIGHT = 480;
 
 Camera camera(0, 1, 5);
-float movementSpeed = 0.2F;
+float movementSpeed = 0.06F;
 
 /**
  * Called when the window is resized.
@@ -67,7 +69,16 @@ void display()
 	
 	camera.updateCamera();
 	
+	Pot pot;
+	pot.drawPot();
+	
+	glPushMatrix();
+	Stem stem(0, 0.2F, 0, 0.05F, -5);
+	stem.showStem();
+	glPopMatrix();
+	
 	// TODO TEMP Draw ground
+	glPushMatrix();
 	glColor3f(0.9f, 0.9f, 0.9f);
 	glBegin(GL_QUADS);
 	glVertex3f(-100, 0, -100);
@@ -82,11 +93,12 @@ void display()
 		for (int j = -3; j < 3; j++)
 		{
 			glPushMatrix();
-			glTranslatef(i*10.0, 0, j*10.0);
+			glTranslatef(i*10.0 + 5, 0, j*10.0 + 5);
 			drawSnowMan();
 			glPopMatrix();
 		}
 	}
+	glPopMatrix();
 	
 	glutSwapBuffers();
 }
@@ -99,6 +111,15 @@ void update(int index)
 	handleInput();
 	glutPostRedisplay();
 	glutTimerFunc(1000/60, update, 0);
+}
+
+void init()
+{
+	glEnable(GL_DEPTH_TEST);
+	glDepthFunc(GL_LEQUAL);    // Set the type of depth-test
+	glShadeModel(GL_SMOOTH); // Enable smooth shading
+	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST); // Nice perspective corrections
+	glClearDepth(1.0f); // Set background depth to farthest
 }
 
 int main(int argc, char* argv[])
@@ -125,6 +146,7 @@ int main(int argc, char* argv[])
 	glutPassiveMotionFunc(mouseMotionListener);
 	glutWarpPointer(WINDOW_WIDTH/2, WINDOW_HEIGHT/2); // Move mouse to center
 	
-	glEnable(GL_DEPTH_TEST);
+	init();
+	
 	glutMainLoop();
 }
