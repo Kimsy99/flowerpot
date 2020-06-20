@@ -1,6 +1,6 @@
 #include <windows.h>
 #include <GL/glut.h>
-
+#include "util.colors.h"
 ///flower use abstract class
 
 ///pot class
@@ -14,12 +14,12 @@
 
 ///real time controller class (10000 x)
 
-
+/*
 struct flower {
     Stem stem;
     Petal petal;
     Leaf leaf;
-};
+};*/
 ///init
 
 ///display
