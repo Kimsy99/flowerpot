@@ -8,6 +8,8 @@
  *   Author: Mister_Bander
  */
 
+extern const float PI = 3.14159265359F;
+
 namespace mh
 {
 	int max(int a, int b);

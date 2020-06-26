@@ -13,8 +13,15 @@
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Compiler>
+					<Add option="-std=c++14" />
 					<Add option="-g" />
 				</Compiler>
+				<Linker>
+					<Add option="-lgdi32 -lopengl32 -lglu32 -lglut32" />
+					<Add library="glut32" />
+					<Add library="opengl32" />
+					<Add library="glu32" />
+				</Linker>
 			</Target>
 			<Target title="Release">
 				<Option output="bin/Release/flowerPot" prefix_auto="1" extension_auto="1" />
@@ -42,7 +49,17 @@
 			<Add library="gdi32" />
 			<Add directory="C:/Program Files (x86)/CodeBlocks/MinGW/lib" />
 		</Linker>
+		<Unit filename="controller/keycontroller.cpp" />
+		<Unit filename="controller/keycontroller.h" />
+		<Unit filename="controller/mousecontroller.cpp" />
+		<Unit filename="controller/mousecontroller.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="util/Camera.cpp" />
+		<Unit filename="util/Camera.h" />
+		<Unit filename="util/colors.cpp" />
+		<Unit filename="util/colors.h" />
+		<Unit filename="util/mathhelper.cpp" />
+		<Unit filename="util/mathhelper.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />
