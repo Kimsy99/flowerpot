@@ -6,11 +6,12 @@
 #include "controller/mousecontroller.h"
 #include "model/Pot.h"
 #include "model/Stem.h"
+#include "model/Light.h"
 
 // Global attributes
 static const int WINDOW_WIDTH = 800;
 static const int WINDOW_HEIGHT = 480;
-
+Light light(0);
 Camera camera(0, 1, 5);
 float movementSpeed = 0.06F;
 
@@ -29,8 +30,8 @@ void reshape(int window_width, int window_height)
 
 	glViewport(0, 0, window_width, window_height); // Set the viewport to be the entire window
 	gluPerspective(45.0F, aspect_ratio, 0.1F, 100);
-
 	glMatrixMode(GL_MODELVIEW); // Get back to MODELVIEW
+	light.startLighting();
 }
 
 void drawSnowMan()
@@ -65,13 +66,21 @@ void drawSnowMan()
 void display()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glMatrixMode(GL_MODELVIEW);
+	//start lighting
+	light.startLighting();
 	glLoadIdentity(); // Reset transformations
 
+	//set up camera
 	camera.updateCamera();
+
+	//Set up flower pot
 	Pot pot;
 	pot.drawPot();
 	
 	glPushMatrix();
+
+	//set up stem
 	Stem stem(0, 0.2F, 0, 0.05F, -5);
 	stem.showStem();
 	glPopMatrix();
@@ -106,6 +115,7 @@ void display()
 void update(int index)
 {
 	handleInput();
+	handleLighting(light);
 	glutPostRedisplay();
 	glutTimerFunc(1000/60, update, 0);
 }
@@ -117,6 +127,11 @@ void init()
 	glShadeModel(GL_SMOOTH); // Enable smooth shading
 	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST); // Nice perspective corrections
 	glClearDepth(1.0f); // Set background depth to farthest
+	glEnable(GL_COLOR_MATERIAL);
+	glEnable(GL_LIGHTING); //Enable lighting
+	glEnable(GL_LIGHT0); //Enable light #0
+	glEnable(GL_LIGHT1); //Enable light #1
+	glEnable(GL_NORMALIZE); //Automatically normalize normals
 }
 
 int main(int argc, char* argv[])
@@ -147,3 +162,7 @@ int main(int argc, char* argv[])
 	
 	glutMainLoop();
 }
+
+//this week
+//Kim -> lighting and flowerpot
+//Kenneth -> petal, leaf
