@@ -4,14 +4,14 @@
 #include <GL/glut.h>
 #include "../util/Camera.h"
 #include "../model/Light.h"
-//#include "../main.cpp"
+
 /**
  * Handles all key events.
  */
 
 extern Camera camera;
 extern float movementSpeed;
-extern Light light;
+
 /**
  * Maps all characters to a flag indicating whether it is being pressed or not. Due to limitations, this
  * currently only works on letters and the whitespace characters (spaces and tabs).
@@ -94,8 +94,9 @@ void handleInput()
 
 /**
  * Handle changing in lighting
- * */
-void handleLighting(Light light){
+ */
+void handleLighting(Light light)
+{
 	if (keyMap['k'])
 		light.shiftLighting(5);
 	if (keyMap['j'])

@@ -24,7 +24,7 @@ class Camera
 		float lx = 0, ly = 0, lz = -1;
 	public:
 		Camera() {};
-		Camera(float x, float y, float z):x(x), y(y), z(z) {}
+		Camera(float x, float y, float z) : x(x), y(y), z(z) {}
 		
 		void translateCamera(float dx, float dy, float dz);
 		void moveForward(float d);

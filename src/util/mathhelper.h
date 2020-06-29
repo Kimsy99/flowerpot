@@ -8,13 +8,14 @@
  *   Author: Mister_Bander
  */
 
-extern const float PI = 3.14159265359F;
+extern const float PI;
 
 namespace mh
 {
 	int max(int a, int b);
 	int max(int a, int b, int c);
 	int irandom(int min, int max);
+	float frandom(float min, float max);
 	int gcd(int a, int b);
 	float deg(float rad);
 	float sind(float angle);

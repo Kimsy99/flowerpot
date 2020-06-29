@@ -13,8 +13,7 @@ using namespace std;
  *  Updated: 2 Jun 2020
  *   Author: Mister_Bander
  */
-
-const float PI = 3.14159265358979F;
+extern const float PI = 3.14159265359F;
 
 namespace mh
 {
@@ -23,7 +22,7 @@ namespace mh
 	 */
 	int max(int a, int b)
 	{
-		return a>b ? a : b;
+		return a > b ? a : b;
 	}
 	
 	/**
@@ -39,7 +38,7 @@ namespace mh
 	 */
 	int irandom(int min, int max)
 	{
-		if (min>max)
+		if (min > max)
 		{
 			cout << "Exception in irandom(min, max) : min must not be greater than max" << endl;
 			exit(1153);
@@ -47,6 +46,22 @@ namespace mh
 		//Initialize our mersenne twister with random seed
 		static mt19937 mersenne(static_cast<unsigned int>(std::time(nullptr)));
 		uniform_int_distribution<> rand(min, max);
+		return rand(mersenne);
+	}
+
+	/**
+	 * Returns a random float from min (inclusive) to max (exclusive). min must be smaller or equal to max.
+	 */
+	float frandom(float min, float max)
+	{
+		if (min > max)
+		{
+			cout << "Exception in frandom(min, max) : min must not be greater than max" << endl;
+			exit(1153);
+		}
+		//Initialize our mersenne twister with random seed
+		static mt19937 mersenne(static_cast<unsigned int>(std::time(nullptr)));
+		uniform_real_distribution<> rand(min, max);
 		return rand(mersenne);
 	}
 	

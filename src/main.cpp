@@ -2,16 +2,18 @@
 #include <windows.h>
 #include <GL/glut.h>
 #include "util/camera.h"
+#include "util/mathhelper.h"
 #include "controller/keycontroller.h"
 #include "controller/mousecontroller.h"
 #include "model/Pot.h"
 #include "model/Stem.h"
 #include "model/Light.h"
+#include "model/DaisyCenter.h"
 
 // Global attributes
 static const int WINDOW_WIDTH = 800;
 static const int WINDOW_HEIGHT = 480;
-Light light(0);
+Light light(45);
 Camera camera(0, 1, 5);
 float movementSpeed = 0.06F;
 
@@ -31,7 +33,7 @@ void reshape(int window_width, int window_height)
 	glViewport(0, 0, window_width, window_height); // Set the viewport to be the entire window
 	gluPerspective(45.0F, aspect_ratio, 0.1F, 100);
 	glMatrixMode(GL_MODELVIEW); // Get back to MODELVIEW
-	light.startLighting();
+//	light.startLighting();
 }
 
 void drawSnowMan()
@@ -70,10 +72,10 @@ void display()
 	//start lighting
 	light.startLighting();
 	glLoadIdentity(); // Reset transformations
-
+	
 	//set up camera
 	camera.updateCamera();
-
+	
 	//Set up flower pot
 	Pot pot;
 	pot.drawPot();
@@ -93,7 +95,7 @@ void display()
 	glVertex3f(100, 0, 100);
 	glVertex3f(100, 0, -100);
 	glEnd();
-
+	
 	// Draw 36 snowmen
 	for (int i = -3; i < 3; i++)
 	{
@@ -105,6 +107,10 @@ void display()
 			glPopMatrix();
 		}
 	}
+	
+	static DaisyCenter daisy(0, 3, 0, 0, 45, 0);
+	daisy.draw();
+	
 	glPopMatrix();
 	glutSwapBuffers();
 }
@@ -141,7 +147,7 @@ int main(int argc, char* argv[])
 	glutInitWindowSize(WINDOW_WIDTH, WINDOW_HEIGHT);
 	glutInitWindowPosition((glutGet(GLUT_SCREEN_WIDTH) - WINDOW_WIDTH)/2, (glutGet(GLUT_SCREEN_HEIGHT) - WINDOW_HEIGHT)/2);
 	glutCreateWindow("Flowerpot");
-
+	
 	// Register callbacks
 	glutDisplayFunc(display);
 	glutTimerFunc(1000/60, update, 0);
@@ -150,10 +156,10 @@ int main(int argc, char* argv[])
 	glutKeyboardUpFunc(keyUpListener);
 	glutSpecialFunc(specialKeyListener);
 	glutSpecialUpFunc(specialKeyUpListener);
-
+	
 	glutSetKeyRepeat(GLUT_KEY_REPEAT_OFF); // Don't repeat keys
 	std::cout << std::boolalpha; // Make it so that it prints 'true' and 'false' instead of '1' and '0'
-
+	
 	glutMotionFunc(mouseMotionListener);
 	glutPassiveMotionFunc(mouseMotionListener);
 	glutWarpPointer(WINDOW_WIDTH/2, WINDOW_HEIGHT/2); // Move mouse to center
