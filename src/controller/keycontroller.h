@@ -1,5 +1,7 @@
-#include "../model/Light.h"
 #pragma once
+
+#include "../model/Light.h"
+
 /**
  * Handles all key events.
  */
@@ -9,4 +11,4 @@ void keyUpListener(unsigned char key, int mx, int my);
 void specialKeyListener(int key, int mx, int my);
 void specialKeyUpListener(int key, int mx, int my);
 void handleInput();
-void handleLighting(Light light);
+void handleLighting();

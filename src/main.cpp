@@ -69,6 +69,7 @@ void display()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glMatrixMode(GL_MODELVIEW);
+	
 	//start lighting
 	light.startLighting();
 	glLoadIdentity(); // Reset transformations
@@ -121,7 +122,7 @@ void display()
 void update(int index)
 {
 	handleInput();
-	handleLighting(light);
+	handleLighting();
 	glutPostRedisplay();
 	glutTimerFunc(1000/60, update, 0);
 }

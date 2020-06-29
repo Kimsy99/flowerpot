@@ -10,6 +10,7 @@
  */
 
 extern Camera camera;
+extern Light light;
 extern float movementSpeed;
 
 /**
@@ -95,7 +96,7 @@ void handleInput()
 /**
  * Handle changing in lighting
  */
-void handleLighting(Light light)
+void handleLighting()
 {
 	if (keyMap['k'])
 		light.shiftLighting(5);

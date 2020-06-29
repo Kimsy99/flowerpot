@@ -1,6 +1,10 @@
 #include <GL/glut.h>
 #include "GLObject.h"
 
+/**
+ * Represents an OpenGL object in the world that could be drawn.
+ */
+
 void GLObject::applyTranslation() const
 {
 	glTranslatef(x, y, z);

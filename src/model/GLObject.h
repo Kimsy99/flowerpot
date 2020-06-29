@@ -1,5 +1,8 @@
 #pragma once
 
+/**
+ * Represents an OpenGL object in the world that could be drawn.
+ */
 class GLObject
 {
 	protected:
