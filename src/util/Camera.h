@@ -62,5 +62,5 @@ class Camera
 		/**
 		 * Applies the view of the camera.
 		 */
-		void updateCamera();
+		void update();
 };

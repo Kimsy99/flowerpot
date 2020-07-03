@@ -1,5 +1,6 @@
 #include <iostream>
 #include "Light.h"
+#include "../util/mathhelper.h"
 
 /*
  * light.cpp
@@ -8,18 +9,28 @@
  *      Author: Kim Sheng Yong
  */
 
-void Light::startLighting() const
+void Light::update() const
 {
-	glPushMatrix(); // Reset the currently specified matrix as a unit matrix
-	const GLfloat light_ambient[] = {0.0f, 0.0f, 0.0f, 1.0f};
-	const GLfloat light_diffuse[] = {1.0f, 1.0f, 1.0f, 1.0f};
-	const GLfloat light_specular[] = {1.0f, 1.0f, 1.0f, 1.0f};
-	const GLfloat light_position[] = {GLfloat(rotateAngle), 100.0f, 0.0f, 1.0f};
+	float lightLevel;
+	if (shineAngle < 45)
+		lightLevel = mh::sind(shineAngle*2);
+	else if (shineAngle < 135)
+		lightLevel = 1;
+	else if (shineAngle < 180)
+		lightLevel = mh::cosd((shineAngle - 135)*2);
+	else
+		lightLevel = 0;
 	
-	const GLfloat mat_ambient[] = {0.7f, 0.7f, 0.7f, 1.0f};
-	const GLfloat mat_diffuse[] = {0.8f, 0.8f, 0.8f, 1.0f};
-	const GLfloat mat_specular[] = {1.0f, 1.0f, 1.0f, 1.0f};
-	const GLfloat high_shininess[] = {100.0f};
+	// Reset the currently specified matrix as a unit matrix
+	const GLfloat light_ambient[] = {0.06F + lightLevel*0.2F, 0.06F + lightLevel*0.2F, 0.1F + lightLevel*0.16F, 1};
+	const GLfloat light_diffuse[] = {lightLevel, lightLevel, lightLevel, 1};
+	const GLfloat light_specular[] = {lightLevel, lightLevel, lightLevel, 1};
+	const GLfloat light_position[] = {mh::cosd(shineAngle), mh::sind(shineAngle), 0, 0};
+	
+	const GLfloat mat_ambient[] = {0.7F, 0.7F, 0.7F, 1.0F};
+	const GLfloat mat_diffuse[] = {0.8F, 0.8F, 0.8F, 1.0F};
+	const GLfloat mat_specular[] = {1.0F, 1.0F, 1.0F, 1.0F};
+	const GLfloat high_shininess[] = {100.0F};
 	
 	glEnable(GL_LIGHT0); // Turn on lighting
 	glEnable(GL_NORMALIZE);
@@ -35,13 +46,11 @@ void Light::startLighting() const
 	glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse);
 	glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
 	glMaterialfv(GL_FRONT, GL_SHININESS, high_shininess);
-	glEnable(GL_DEPTH_TEST); // Open depth test
-	glPopMatrix();
 }
 
-void Light::shiftLighting(int changingAngle)
+void Light::shiftLighting(int dtheta)
 {
-	this->rotateAngle = (this->rotateAngle + changingAngle)%360;
-	std::cout << "Lighting Angle Now " << this->rotateAngle << std::endl;
-//	glutSwapBuffers();
+	shineAngle += dtheta;
+	shineAngle = (shineAngle + 360)%360;
+	std::cout << "Lighting Angle Now " << shineAngle << std::endl;
 }

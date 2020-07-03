@@ -4,13 +4,10 @@
 
 class Light
 {
-		int rotateAngle;
+		int shineAngle;
 	public:
-		Light(float rotateAngle)
-		{
-			this->rotateAngle = rotateAngle;
-		}
+		Light(float shineAngle) : shineAngle(shineAngle) {};
 		
-		void startLighting() const;
-		void shiftLighting(int changingAngle);
+		void update() const;
+		void shiftLighting(int dtheta);
 };

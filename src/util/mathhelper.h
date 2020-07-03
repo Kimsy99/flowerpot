@@ -51,4 +51,9 @@ namespace mh
 	 * Returns the cosine of an angle in degrees.
 	 */
 	float cosd(float degrees);
+	
+	/**
+	 * Returns the tangent of an angle in degrees.
+	 */
+	float tand(float degrees);
 }

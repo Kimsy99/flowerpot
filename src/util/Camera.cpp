@@ -46,7 +46,11 @@ void Camera::elevate(float d)
  */
 void Camera::rotateYaw(float dyaw)
 {
-	this->yaw += dyaw;
+	yaw += dyaw;
+	if (yaw >= 360)
+		yaw -= 360;
+	else if (yaw < 0)
+		yaw += 360;
 }
 
 /**
@@ -54,7 +58,7 @@ void Camera::rotateYaw(float dyaw)
  */
 void Camera::rotatePitch(float dpitch)
 {
-	this->pitch += dpitch;
+	pitch += dpitch;
 	// Clamp between -90 to 90
 	if (pitch < -90)
 		pitch = -90;
@@ -65,7 +69,7 @@ void Camera::rotatePitch(float dpitch)
 /**
  * Applies the view of the camera.
  */
-void Camera::updateCamera()
+void Camera::update()
 {
 	lx = mh::cosd(pitch)*mh::cosd(-yaw);
 	ly = mh::sind(pitch);

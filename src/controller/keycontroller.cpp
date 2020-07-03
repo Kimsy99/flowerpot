@@ -76,9 +76,9 @@ void specialKeyUpListener(int key, int mx, int my)
 void handleInput()
 {
 	if (specialKeyMap[114] || specialKeyMap[115]) // Left control and right control
-		movementSpeed = 0.6F;
+		movementSpeed = 0.02F;
 	else
-		movementSpeed = 0.2F;
+		movementSpeed = 0.1F;
 	if (keyMap['w'] || specialKeyMap[GLUT_KEY_UP])
 		camera.moveForward(movementSpeed);
 	if (keyMap['a'] || specialKeyMap[GLUT_KEY_LEFT])
@@ -99,7 +99,7 @@ void handleInput()
 void handleLighting()
 {
 	if (keyMap['k'])
-		light.shiftLighting(5);
+		light.shiftLighting(3);
 	if (keyMap['j'])
-		light.shiftLighting(-5);
+		light.shiftLighting(-3);
 }

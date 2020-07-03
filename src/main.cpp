@@ -16,7 +16,7 @@ static const int WINDOW_HEIGHT = 480;
 
 Light light(45);
 Camera camera(0, 1, 5);
-float movementSpeed = 0.06F;
+float movementSpeed = 0.1F;
 
 /**
  * Called when the window is resized.
@@ -70,24 +70,21 @@ void display()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
 	
-	//start lighting
-	light.startLighting();
-	glLoadIdentity(); // Reset transformations
+	// Set up camera
+	camera.update();
 	
-	//set up camera
-	camera.updateCamera();
+	// Set up lighting
+	light.update();
 	
-	//Set up flower pot
-	static Pot pot(0, 2, 0);
+	// Set up flower pot
+	static Pot pot(0, 0, 0);
 	pot.beginDraw();
 	
-	glPushMatrix();
-
-	//set up stem
-	Stem stem(0, 0.2F, 0, 0.05F, -5);
-	stem.showStem();
-	glPopMatrix();
+	// Set up stem
+//	static Stem stem(0, 0.2F, 0, 3, 0.3F);
+//	stem.beginDraw();
 	
 	glPushMatrix();
 	glColor3f(0.9f, 0.9f, 0.9f);
@@ -152,10 +149,10 @@ void init()
 	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST); // Nice perspective corrections
 	glClearDepth(1.0F); // Set background depth to farthest
 	glEnable(GL_COLOR_MATERIAL);
-	glEnable(GL_LIGHTING); //Enable lighting
-	glEnable(GL_LIGHT0); //Enable light #0
-	glEnable(GL_LIGHT1); //Enable light #1
-	glEnable(GL_NORMALIZE); //Automatically normalize normals
+	glEnable(GL_LIGHTING); // Enable lighting
+	glEnable(GL_LIGHT0); // Enable light #0
+	glEnable(GL_LIGHT1); // Enable light #1
+	glEnable(GL_NORMALIZE); // Automatically normalize normals
 }
 
 int main(int argc, char* argv[])

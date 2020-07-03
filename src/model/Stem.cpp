@@ -1,25 +1,30 @@
-/*
- * Stem.cpp
- *
- *  Version: 1
- *  Updated: 20 Jun 2020
- *   Author: Mister_Bander
- */
-
 #include "Stem.h"
+#include "../util/mathhelper.h"
+#include "../util/colors.h"
 
-void Stem::showStem() const
+void Stem::draw()
 {
-	GLUquadricObj* quadratic = gluNewQuadric();
-	glColor3f(0.0f, 1.0f, 0.0f);
-	glTranslatef(xTrans, yTrans, zTrans);
-	glRotatef(-90, 1.0, 0.0, 0.0);
-	gluCylinder(quadratic, 0.01f, 0.01f, 0.1, 32, 32);
-	for (int i = 0; i < 20; i++)
+	static GLUquadricObj* quadric = gluNewQuadric();
+	setColor(DARK_GREEN);
+	
+	rotateY(curvingDirection);
+	
+	glPushMatrix();
+	rotateX(-90);
+	gluCylinder(quadric, 0.03F, 0.03F, stemPartHeight, 32, 32);
+	glPopMatrix();
+	
+	for (int i = 1; i <= stemPartCount; i++)
 	{
-		glTranslatef(0.0f, 0.0f, height);
-		glRotatef(rotateAngle, 1.0, 0.0, 0.0);
-		gluCylinder(quadratic, 0.01f, 0.01f, height, 32, 32);
-		//gluCylinder(quadratic, 0.01f,0.01,)
+		float d = stemPartHeight*mh::sind(curvingAngle);
+		glTranslatef(0, stemPartHeight*0.99F, 0);
+		
+		glPushMatrix();
+		rotateZ(-curvingAngle*i);
+		rotateX(-90);
+		gluCylinder(quadric, 0.03F, 0.03F, stemPartHeight, 32, 32);
+		glPopMatrix();
+		
+		glTranslatef(d*i, 0, 0);
 	}
 }
