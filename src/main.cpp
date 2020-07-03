@@ -3,6 +3,7 @@
 #include <GL/glut.h>
 #include "util/camera.h"
 #include "util/mathhelper.h"
+#include "util/colors.h"
 #include "controller/keycontroller.h"
 #include "controller/mousecontroller.h"
 #include "model/Pot.h"
@@ -62,27 +63,31 @@ void drawSnowMan()
 	glColor3f(1, 0.5F, 0.5F);
 	glutSolidCone(0.08F, 0.5F, 10, 2);
 }
+
 /*
  * Draw Instruction text on screen
  */
-void drawText(const char *text, int length, int x, int y){
+void drawText(const char* text, int length, int x, int y)
+{
 	glMatrixMode(GL_PROJECTION);
-	double *matrix = new double[16];
+	double* matrix = new double[16];
 	glGetDoublev(GL_PROJECTION_MATRIX, matrix);
 	glLoadIdentity();
-	glOrtho(0,800,0,600,-5,5);
+	glOrtho(0, 800, 0, 600, -5, 5);
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 	glPushMatrix();
 	glLoadIdentity();
-	glRasterPos2i(x,y);
-	for(int i=0; i<length; i++){
+	glRasterPos2i(x, y);
+	for (int i = 0; i < length; i++)
+	{
 		glutBitmapCharacter(GLUT_BITMAP_9_BY_15, (int)text[i]);
 	}
 	glPopMatrix();
 	glMatrixMode(GL_PROJECTION);
 	glLoadMatrixd(matrix);
 	glMatrixMode(GL_MODELVIEW);
+	delete[] matrix;
 }
 
 /**
@@ -128,14 +133,14 @@ void display()
 	static DaisyCenter daisy(0, 3, 0);
 	daisy.beginDraw();
 	
-
 	glPopMatrix();
-
-
+	
 	std::string text;
 	text ="Press alt + F4 to leave";
+	glDisable(GL_LIGHT0);
+	setColor(WHITE);
 	drawText(text.data(), text.size(),0,0);
-
+	
 	glutSwapBuffers();
 }
 
