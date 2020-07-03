@@ -1,17 +1,12 @@
 #pragma once
 
-class Pot
+#include "GLObject.h"
+
+class Pot : public GLObject
 {
 	public:
-		/*GLfloat x;
-		 GLfloat y;
-		 GLfloat z;
-		 GLfloat height;
-		 GLfloat width;
-		 Pot(GLfloat newX, GLfloat newY, GLfloat newZ, GLfloat newHeight, GLfloat newWidth){
-		 x=newX;
-		 y=newY;
-		 z=newZ;
-		 }*/
-		void drawPot();
+		Pot(float x, float y, float z) : GLObject(x, y, z) {};
+		
+	protected:
+		void draw() override;
 };

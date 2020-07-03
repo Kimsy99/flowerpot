@@ -2,17 +2,36 @@
 #include "GLObject.h"
 
 /**
- * Represents an OpenGL object in the world that could be drawn.
+ * Setup to draw the object.
  */
-
-void GLObject::applyTranslation() const
+void GLObject::beginDraw()
 {
+	glPushMatrix();
 	glTranslatef(x, y, z);
+	draw();
+	glPopMatrix();
 }
 
-void GLObject::applyRotation() const
+/**
+ * Rotates the object along the x-axis.
+ */
+void GLObject::rotateX(float degrees) const
 {
-	glRotatef(rotateX, 1, 0, 0);
-	glRotatef(rotateY, 0, 1, 0);
-	glRotatef(rotateZ, 0, 0, 1);
+	glRotatef(degrees, 1, 0, 0);
+}
+
+/**
+ * Rotates the object along the y-axis.
+ */
+void GLObject::rotateY(float degrees) const
+{
+	glRotatef(degrees, 0, 1, 0);
+}
+
+/**
+ * Rotates the object along the z-axis.
+ */
+void GLObject::rotateZ(float degrees) const
+{
+	glRotatef(degrees, 0, 0, 1);
 }

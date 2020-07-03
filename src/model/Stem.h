@@ -1,6 +1,7 @@
 #pragma once
 
 #include <GL/glut.h>
+#include "GLObject.h"
 
 class Stem
 {

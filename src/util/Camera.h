@@ -26,11 +26,41 @@ class Camera
 		Camera() {};
 		Camera(float x, float y, float z) : x(x), y(y), z(z) {}
 		
+		/**
+		 * Moves the camera around.
+		 */
 		void translateCamera(float dx, float dy, float dz);
+		
+		/**
+		 * Moves the camera forward by d units (if negative, moves backwards instead). Does not affect
+		 * elevation.
+		 */
 		void moveForward(float d);
+		
+		/**
+		 * Moves the camera left or right (positive means to the right, negative means to the left). Does
+		 * not affect elevation.
+		 */
 		void strafe(float d);
+		
+		/**
+		 * Changes the elevation of the camera, i.e. moves the camera up or down (positive means upwards,
+		 * negative means downwards.
+		 */
 		void elevate(float d);
+		
+		/**
+		 * Changes the yaw of the camera.
+		 */
 		void rotateYaw(float dyaw);
+		
+		/**
+		 * Changes the pitch of the camera.
+		 */
 		void rotatePitch(float dpitch);
+		
+		/**
+		 * Applies the view of the camera.
+		 */
 		void updateCamera();
 };

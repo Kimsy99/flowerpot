@@ -6,9 +6,11 @@
 
 class DaisyCenter : public GLObject
 {
-		std::vector<DaisyPetal> petals;
-	public:
-		DaisyCenter(float x, float y, float z, float rotateX, float rotateY, float rotateZ);
+		std::vector<DaisyPetal*> petals;
 		
+	public:
+		DaisyCenter(float x, float y, float z);
+		
+	protected:
 		void draw() override;
 };
