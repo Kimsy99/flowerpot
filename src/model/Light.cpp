@@ -1,4 +1,7 @@
 #include <iostream>
+#include <GL/glut.h>
+#include <GL/glu.h>
+#include <GL/gl.h>
 #include "Light.h"
 #include "../util/mathhelper.h"
 
@@ -9,6 +12,9 @@
  *      Author: Kim Sheng Yong
  */
 
+/**
+ * Apply lighting to the world
+ */
 void Light::update() const
 {
 	float lightLevel;
