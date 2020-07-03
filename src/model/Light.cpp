@@ -1,4 +1,7 @@
 #include <iostream>
+#include <GL/glut.h>
+#include <GL/glu.h>
+#include <GL/gl.h>
 #include "Light.h"
 
 /*
@@ -7,7 +10,9 @@
  *  Created on: 26 Jun 2020
  *      Author: Kim Sheng Yong
  */
-
+/**
+ * Apply lighting on the world
+ */
 void Light::startLighting() const
 {
 	glPushMatrix(); // Reset the currently specified matrix as a unit matrix
@@ -37,11 +42,15 @@ void Light::startLighting() const
 	glMaterialfv(GL_FRONT, GL_SHININESS, high_shininess);
 	glEnable(GL_DEPTH_TEST); // Open depth test
 	glPopMatrix();
+	glPushMatrix();
+		glutSolidSphere(80,20,20);
+	glPopMatrix();
 }
-
+/**
+ * Shift light source angle
+ */
 void Light::shiftLighting(int changingAngle)
 {
 	this->rotateAngle = (this->rotateAngle + changingAngle)%360;
 	std::cout << "Lighting Angle Now " << this->rotateAngle << std::endl;
-//	glutSwapBuffers();
 }

@@ -4,6 +4,9 @@
 
 class Light
 {
+		/**
+		 * angle of the light source
+		 */
 		int rotateAngle;
 	public:
 		Light(float rotateAngle)
@@ -11,6 +14,12 @@ class Light
 			this->rotateAngle = rotateAngle;
 		}
 		
+		/**
+		 * Apply lighting on the world
+		 */
 		void startLighting() const;
+		/**
+		 * Shift light source angle
+		 */
 		void shiftLighting(int changingAngle);
 };
