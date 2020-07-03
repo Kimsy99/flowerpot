@@ -4,22 +4,19 @@
 
 class Light
 {
-		/**
-		 * angle of the light source
-		 */
-		int rotateAngle;
+		/** Angle of the light source. */
+		int shineAngle;
+
 	public:
-		Light(float rotateAngle)
-		{
-			this->rotateAngle = rotateAngle;
-		}
+		Light(float shineAngle) : shineAngle(shineAngle) {};
 		
 		/**
-		 * Apply lighting on the world
+		 * Apply lighting to the world.
 		 */
-		void startLighting() const;
+		void update() const;
+
 		/**
 		 * Shift light source angle
 		 */
-		void shiftLighting(int changingAngle);
+		void shiftLighting(int dtheta);
 };

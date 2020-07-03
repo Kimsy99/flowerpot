@@ -151,7 +151,7 @@ void display()
 
 
 	std::string text;
-	text ="Press alt + F4 to leave";
+	text ="Press alt + F4 to leave \n Move Cursor to move";
 	drawText(text.data(), text.size(),0,0);
 
 	glutSwapBuffers();
