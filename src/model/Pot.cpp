@@ -1,52 +1,45 @@
 #include <GL/glut.h>
 #include "Pot.h"
+#include "../util/colors.h"
 
-void Pot::drawPot()
+void cuboid(float tx, float ty, float tz, float width, float height, float across)
 {
-	glBegin(GL_QUADS);                // Begin drawing the color cube with 6 quads
-	// Top face (y = 1.0f)
-	// Define vertices in counter-clockwise (CCW) order with normal pointing out
+	glTranslatef(tx, ty, tz);
+	glScalef(width, height, across);
+	glutSolidCube(1);
+}
+
+void potSide(float tx, float ty, float tz, float width, float height, float across)
+{
+	glPushMatrix();
+	setColor(BROWN);
+	cuboid(tx, ty, tz, width, height/3, across);
+	glPopMatrix();
 	
-	glColor3f(0.4f, 0.2f, 0.0f);     // Green
-	//top soil
-	glVertex3f(0.45f / 2, 0.4f / 2, -0.45f / 2);
-	glVertex3f(-0.45f / 2, 0.4f / 2, -0.45f / 2);
-	glVertex3f(-0.45f / 2, 0.4f / 2, 0.45f / 2);
-	glVertex3f(0.45f / 2, 0.4f / 2, 0.45f / 2);
-	// Bottom face (y = -1.0f)
+	glPushMatrix();
+	glColor3f(194.0F/255, 120.0F/255, 16.0F/255);
+	cuboid(tx, ty + height/3 + 0.01F, tz, width, height/3, across);
+	glPopMatrix();
 	
-	glColor3f(1.0f, 0.6f, 0.2f);
-	glVertex3f(0.3f / 2, -0.5f / 2, 0.3f / 2);
-	glVertex3f(-0.3f / 2, -0.5f / 2, 0.3f / 2);
-	glVertex3f(-0.3f / 2, -0.5f / 2, -0.3f / 2);
-	glVertex3f(0.3f / 2, -0.5f / 2, -0.3f / 2);
+	glPushMatrix();
+	glColor3f(219.0F/255, 139.0F/255, 26.0F/255);
+	cuboid(tx, ty + 2*height/3 + 0.02F, tz, width, height/3, across);
+	glPopMatrix();
+}
+
+void Pot::draw()
+{
+	// Draw the pot
+	potSide(0, 0, 0.5F, 3, 1, 0.15F);
+	rotateY(90);
+	potSide(0, 0, 1.5F, 1, 1, 0.15F);
+	rotateY(90);
+	potSide(0, 0, 0.5F, 3, 1, 0.15F);
+	rotateY(90);
+	potSide(0, 0, 1.5F, 1, 1, 0.15F);
 	
-	// Front face  (z = 1.0f)
-	glVertex3f(0.5f / 2, 0.5f / 2, 0.5f / 2);
-	glVertex3f(-0.5f / 2, 0.5f / 2, 0.5f / 2);
-	glVertex3f(-0.3f / 2, -0.5f / 2, 0.3f / 2);
-	glVertex3f(0.3f / 2, -0.5f / 2, 0.3f / 2);
-	
-	// Back face (z = -1.0f)
-	//lColor3f(1.0f, 1.0f, 0.0f);     // Yellow
-	glVertex3f(0.3f / 2, -0.5f / 2, -0.3f / 2);
-	glVertex3f(-0.3f / 2, -0.5f / 2, -0.3f / 2);
-	glVertex3f(-0.5f / 2, 0.5f / 2, -0.5f / 2);
-	glVertex3f(0.5f / 2, 0.5f / 2, -0.5f / 2);
-	
-	// Left face (x = -1.0f)
-	// Blue
-	glVertex3f(-0.5f / 2, 0.5f / 2, 0.5f / 2);
-	glVertex3f(-0.5f / 2, 0.5f / 2, -0.5f / 2);
-	glVertex3f(-0.3f / 2, -0.5f / 2, -0.3f / 2);
-	glVertex3f(-0.3f / 2, -0.5f / 2, 0.3f / 2);
-	
-	// Right face (x = 1.0f)
-	//glColor3f(1.0f, 0.0f, 1.0f);     // Magenta
-	glVertex3f(0.5f / 2, 0.5f / 2, -0.5f / 2);
-	glVertex3f(0.5f / 2, 0.5f / 2, 0.5f / 2);
-	glVertex3f(0.3f / 2, -0.5f / 2, 0.3f / 2);
-	glVertex3f(0.3f / 2, -0.5f / 2, -0.3f / 2);
-	
-	glEnd();  // End of drawing
+	// Draw the soil
+	rotateY(90);
+	glColor3f(102.0F/255, 83.0F/255, 56.0F/255);
+	cuboid(0, 0.25F, 0, 3, 0.5F, 1);
 }

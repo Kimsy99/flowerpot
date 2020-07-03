@@ -6,17 +6,35 @@
 class GLObject
 {
 	protected:
-		/** The position of the object */
+		/** The world coordinates of the object */
 		float x, y, z;
 		
-		/** The rotation of the object in degrees */
-		float rotateX, rotateY, rotateZ;
-		
-		GLObject(float x, float y, float z, float rotateX, float rotateY, float rotateZ) : x(x), y(y), z(z), rotateX(rotateX), rotateY(rotateY), rotateZ(rotateZ) {};
+		GLObject(float x, float y, float z) : x(x), y(y), z(z) {};
 		virtual ~GLObject() {};
 		
-	public:
+		/**
+		 * Actually draws the object.
+		 */
 		virtual void draw() = 0;
-		void applyTranslation() const;
-		void applyRotation() const;
+		
+	public:
+		/**
+		 * Setup to draw the object.
+		 */
+		void beginDraw();
+		
+		/**
+		 * Rotates the object along the x-axis.
+		 */
+		void rotateX(float degrees) const;
+		
+		/**
+		 * Rotates the object along the y-axis.
+		 */
+		void rotateY(float degrees) const;
+		
+		/**
+		 * Rotates the object along the z-axis.
+		 */
+		void rotateZ(float degrees) const;
 };

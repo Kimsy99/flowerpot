@@ -4,8 +4,11 @@
 
 class DaisyPetal : public GLObject
 {
-	public:
-		DaisyPetal(float x, float y, float z, float rotateX, float rotateY, float rotateZ) : GLObject(x, y, z, rotateX, rotateY, rotateZ) {};
+		float rotation;
 		
+	public:
+		DaisyPetal(float x, float y, float z, float rotation) : GLObject(x, y, z), rotation(rotation) {};
+		
+	protected:
 		void draw() override;
 };

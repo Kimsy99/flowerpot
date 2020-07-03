@@ -75,26 +75,26 @@ namespace mh
 	}
 	
 	/**
-	 * Converts from radians to degrees.
+	 * Converts from degrees to radians.
 	 */
-	float deg(float rad)
+	float rad(float degrees)
 	{
-		return rad*PI/180;
+		return degrees*PI/180;
 	}
 	
 	/**
 	 * Returns the sine of an angle in degrees.
 	 */
-	float sind(float angle)
+	float sind(float degrees)
 	{
-		return sin(deg(angle));
+		return sin(rad(degrees));
 	}
 	
 	/**
 	 * Returns the cosine of an angle in degrees.
 	 */
-	float cosd(float angle)
+	float cosd(float degrees)
 	{
-		return cos(deg(angle));
+		return cos(rad(degrees));
 	}
 }

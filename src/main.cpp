@@ -13,6 +13,7 @@
 // Global attributes
 static const int WINDOW_WIDTH = 800;
 static const int WINDOW_HEIGHT = 480;
+
 Light light(45);
 Camera camera(0, 1, 5);
 float movementSpeed = 0.06F;
@@ -78,8 +79,8 @@ void display()
 	camera.updateCamera();
 	
 	//Set up flower pot
-	Pot pot;
-	pot.drawPot();
+	static Pot pot(0, 2, 0);
+	pot.beginDraw();
 	
 	glPushMatrix();
 
@@ -109,8 +110,8 @@ void display()
 		}
 	}
 	
-	static DaisyCenter daisy(0, 3, 0, 0, 45, 0);
-	daisy.draw();
+	static DaisyCenter daisy(0, 3, 0);
+	daisy.beginDraw();
 	
 	glPopMatrix();
 	glutSwapBuffers();
@@ -129,26 +130,6 @@ void update(int index)
 
 void init()
 {
-	glEnable(GL_DEPTH_TEST);
-	glDepthFunc(GL_LEQUAL);    // Set the type of depth-test
-	glShadeModel(GL_SMOOTH); // Enable smooth shading
-	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST); // Nice perspective corrections
-	glClearDepth(1.0f); // Set background depth to farthest
-	glEnable(GL_COLOR_MATERIAL);
-	glEnable(GL_LIGHTING); //Enable lighting
-	glEnable(GL_LIGHT0); //Enable light #0
-	glEnable(GL_LIGHT1); //Enable light #1
-	glEnable(GL_NORMALIZE); //Automatically normalize normals
-}
-
-int main(int argc, char* argv[])
-{
-	glutInit(&argc, argv);
-	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
-	glutInitWindowSize(WINDOW_WIDTH, WINDOW_HEIGHT);
-	glutInitWindowPosition((glutGet(GLUT_SCREEN_WIDTH) - WINDOW_WIDTH)/2, (glutGet(GLUT_SCREEN_HEIGHT) - WINDOW_HEIGHT)/2);
-	glutCreateWindow("Flowerpot");
-	
 	// Register callbacks
 	glutDisplayFunc(display);
 	glutTimerFunc(1000/60, update, 0);
@@ -165,11 +146,27 @@ int main(int argc, char* argv[])
 	glutPassiveMotionFunc(mouseMotionListener);
 	glutWarpPointer(WINDOW_WIDTH/2, WINDOW_HEIGHT/2); // Move mouse to center
 	
+	glEnable(GL_DEPTH_TEST);
+	glDepthFunc(GL_LEQUAL); // Set the type of depth-test
+	glShadeModel(GL_SMOOTH); // Enable smooth shading
+	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST); // Nice perspective corrections
+	glClearDepth(1.0F); // Set background depth to farthest
+	glEnable(GL_COLOR_MATERIAL);
+	glEnable(GL_LIGHTING); //Enable lighting
+	glEnable(GL_LIGHT0); //Enable light #0
+	glEnable(GL_LIGHT1); //Enable light #1
+	glEnable(GL_NORMALIZE); //Automatically normalize normals
+}
+
+int main(int argc, char* argv[])
+{
+	glutInit(&argc, argv);
+	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
+	glutInitWindowSize(WINDOW_WIDTH, WINDOW_HEIGHT);
+	glutInitWindowPosition((glutGet(GLUT_SCREEN_WIDTH) - WINDOW_WIDTH)/2, (glutGet(GLUT_SCREEN_HEIGHT) - WINDOW_HEIGHT)/2);
+	glutCreateWindow("Flowerpot");
+	
 	init();
 	
 	glutMainLoop();
 }
-
-//this week
-//Kim -> lighting and flowerpot
-//Kenneth -> petal, leaf
