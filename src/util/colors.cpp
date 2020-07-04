@@ -27,7 +27,7 @@ void setColor(int color_code)
 			glColor3f(1, 1, 0);
 			break;
 		case DARK_GREEN:
-			glColor3f(0, 0.6705F, 0.0117F);
+			glColor3f(19.0F/255,109.0F/255,21.0F/255);
 			break;
 		case WHITE:
 			glColor3f(1, 1, 1);

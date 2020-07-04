@@ -15,9 +15,10 @@
 /**
  * Apply lighting to the world
  */
-void Light::update() const
+
+void Light::update()
 {
-	float lightLevel;
+
 	if (shineAngle < 45)
 		lightLevel = mh::sind(shineAngle*2);
 	else if (shineAngle < 135)
@@ -51,11 +52,17 @@ void Light::update() const
 	glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse);
 	glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
 	glMaterialfv(GL_FRONT, GL_SHININESS, high_shininess);
+	
 	glPushMatrix();
 		glTranslatef(mh::cosd(shineAngle)*100, mh::sind(shineAngle)*100, 0.0f);
-		setColor(SUN);
+		glColor3f(1.0F, 1.0F, 1.0F*lightLevel);
+		glDisable(GL_LIGHTING);
 		glutSolidSphere(10, 40, 40);
+		glEnable(GL_LIGHTING);
 	glPopMatrix();
+	if(sunlightCycle){
+		shiftLighting(1.0F);
+	}
 }
 
 void Light::shiftLighting(int dtheta)

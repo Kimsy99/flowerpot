@@ -7,12 +7,14 @@ class Light
 		/** Angle of the light source. */
 		int shineAngle;
 	public:
+		float lightLevel;
+		bool sunlightCycle=false;
 		Light(float shineAngle) : shineAngle(shineAngle) {};
 		
 		/**
 		 * Apply lighting to the world.
 		 */
-		void update() const;
+		void update();
 		/**
 		 * Shift light source angle
 		 */

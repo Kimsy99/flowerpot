@@ -22,6 +22,8 @@ static std::map<unsigned char, bool> keyMap;
 /** Maps all special keys to a flag indicating whether it is being pressed or not. */
 static std::map<int, bool> specialKeyMap;
 
+
+
 /**
  * If the input parameter is a letter key code, it converts it to a pure letter key code, i.e. discards
  * control and shift modifiers. If the input parameter is the key code for a whitespace character, then
@@ -40,6 +42,9 @@ static unsigned char getPureLetterKeyCode(unsigned char key)
 
 void keyListener(unsigned char key, int mx, int my)
 {
+	if (key == 'm'){
+		light.sunlightCycle = !light.sunlightCycle;
+	}
 	if (!isalpha(key) && !isalpha(key + 96) && key != ' ' && key != '\t')
 		return;
 	key = getPureLetterKeyCode(key);

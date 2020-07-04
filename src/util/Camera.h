@@ -13,7 +13,7 @@ class Camera
 		 * yaw represents the direction the camera is facing, ranges from 0 to 360 where 0 points eastwards
 		 * and increases anti-clockwise
 		 */
-		float yaw = 0;
+		float yaw = 90;
 		/**
 		 * pitch represents the direction the up-down angle of the camera, ranges from -90 to 90 where -90
 		 * points directly downwards and 90 points directly upwards
