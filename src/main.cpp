@@ -106,16 +106,20 @@ void display()
 	
 	std::string text;
 	text = "Press Alt + F4 to quit";
-	drawText(text.data(), text.size(), 0, 82);
+	drawText(text.data(), text.size(), 0, 122);
 	text = "WASD / arrow keys to move the camera (hold Ctrl to move slower)";
-	drawText(text.data(), text.size(), 0, 62);
+	drawText(text.data(), text.size(), 0, 102);
 	text = "Use mouse to look around";
-	drawText(text.data(), text.size(), 0, 42);
+	drawText(text.data(), text.size(), 0, 82);
+	text = "<Space> to ascend the camera, <shift> to descend the camera";
+	drawText(text.data(), text.size(), 0, 62);
 	text = "Hold J and K keys to control sunlight position";
-	drawText(text.data(), text.size(), 0, 22);
+	drawText(text.data(), text.size(), 0, 42);
 	text = "Press M key to toggle daylight cycle";
+	drawText(text.data(), text.size(), 0, 22);
+	text = "Press R key to reset blooming animation";
 	drawText(text.data(), text.size(), 0, 2);
-	
+
 	glEnable(GL_LIGHTING);
 	glutSwapBuffers();
 }
