@@ -15,6 +15,8 @@ class Pot : public GLObject
 		 */
 		Pot(float x, float y, float z);
 		
+		void resetGrowth();
+		
 	protected:
 		/**
 		 * Draw the pot out

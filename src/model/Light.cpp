@@ -18,7 +18,6 @@
 
 void Light::update()
 {
-
 	if (shineAngle < 45)
 		lightLevel = mh::sind(shineAngle*2);
 	else if (shineAngle < 135)
@@ -27,6 +26,7 @@ void Light::update()
 		lightLevel = mh::cosd((shineAngle - 135)*2);
 	else
 		lightLevel = 0;
+	
 	// Reset the currently specified matrix as a unit matrix
 	const GLfloat light_ambient[] = {0.06F + lightLevel*0.2F, 0.06F + lightLevel*0.2F, 0.1F + lightLevel*0.16F, 1};
 	const GLfloat light_diffuse[] = {lightLevel, lightLevel, lightLevel, 1};
@@ -54,20 +54,27 @@ void Light::update()
 	glMaterialfv(GL_FRONT, GL_SHININESS, high_shininess);
 	
 	glPushMatrix();
-		glTranslatef(mh::cosd(shineAngle)*100, mh::sind(shineAngle)*100, 0.0f);
-		glColor3f(1.0F, 1.0F, 1.0F*lightLevel);
-		glDisable(GL_LIGHTING);
-		glutSolidSphere(10, 40, 40);
-		glEnable(GL_LIGHTING);
+	glTranslatef(mh::cosd(shineAngle)*100, mh::sind(shineAngle)*100, 0.0f);
+	glColor3f(1.0F, 1.0F, 1.0F*lightLevel);
+	glDisable(GL_LIGHTING);
+	glutSolidSphere(10, 40, 40);
+	glEnable(GL_LIGHTING);
 	glPopMatrix();
-	if(sunlightCycle){
-		shiftLighting(1.0F);
-	}
+	
+	if (sunlightCycle)
+		shiftLighting(1);
 }
 
 void Light::shiftLighting(int dtheta)
 {
 	shineAngle += dtheta;
 	shineAngle = (shineAngle + 360)%360;
-	std::cout << "Lighting Angle Now " << shineAngle << std::endl;
+//	std::cout << "Lighting Angle Now " << shineAngle << std::endl;
+}
+
+void Light::toggleSpecular(bool flag)
+{
+	const GLfloat light_specular[] = {lightLevel, lightLevel, lightLevel, 1};
+	const GLfloat light_specular_off[] = {0, 0, 0, 0};
+	glLightfv(GL_LIGHT0, GL_SPECULAR, flag ? light_specular : light_specular_off);
 }

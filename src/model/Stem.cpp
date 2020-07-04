@@ -54,6 +54,11 @@ void Stem::grow()
 		itr->second->growthFactor = mh::easeOutCubic(t/DURATION);
 }
 
+void Stem::resetGrowth()
+{
+	time = 0;
+}
+
 void Stem::draw()
 {
 	simulateWind();

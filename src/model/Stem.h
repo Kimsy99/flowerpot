@@ -26,6 +26,7 @@ class Stem : public GLObject
 		Stem(float x, float y, float z, int stemPartCount, float stemPartHeight);
 		void simulateWind();
 		void grow();
+		void resetGrowth();
 		
 	protected:
 		void draw() override;

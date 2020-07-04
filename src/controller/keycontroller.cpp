@@ -4,6 +4,7 @@
 #include <GL/glut.h>
 #include "../util/Camera.h"
 #include "../model/Light.h"
+#include "../model/Pot.h"
 
 /**
  * Handles all key events.
@@ -11,6 +12,7 @@
 
 extern Camera camera;
 extern Light light;
+extern Pot pot;
 extern float movementSpeed;
 
 /**
@@ -42,9 +44,10 @@ static unsigned char getPureLetterKeyCode(unsigned char key)
 
 void keyListener(unsigned char key, int mx, int my)
 {
-	if (key == 'm'){
+	if (key == 'm')
 		light.sunlightCycle = !light.sunlightCycle;
-	}
+	else if (key == 'r')
+		pot.resetGrowth();
 	if (!isalpha(key) && !isalpha(key + 96) && key != ' ' && key != '\t')
 		return;
 	key = getPureLetterKeyCode(key);

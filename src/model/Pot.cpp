@@ -1,7 +1,10 @@
 #include <GL/glut.h>
 #include "Pot.h"
 #include "Stem.h"
+#include "Light.h"
 #include "../util/colors.h"
+
+extern Light light;
 
 Pot::Pot(float x, float y, float z) : GLObject(x, y, z)
 {
@@ -10,7 +13,7 @@ Pot::Pot(float x, float y, float z) : GLObject(x, y, z)
 	stems.push_back(new Stem(-1, 0.75F, 0.1F, 14, 0.13F));
 }
 
-void cuboid(float tx, float ty, float tz, float width, float height, float across)
+static void cuboid(float tx, float ty, float tz, float width, float height, float across)
 {
 	glTranslatef(tx, ty, tz);
 	glScalef(width, height, across);
@@ -35,9 +38,16 @@ void potSide(float tx, float ty, float tz, float width, float height, float acro
 	glPopMatrix();
 }
 
+void Pot::resetGrowth()
+{
+	for (unsigned int i = 0; i < stems.size(); ++i)
+		stems.at(i)->resetGrowth();
+}
+
 void Pot::draw()
 {
 	glPushMatrix();
+	light.toggleSpecular(false);
 	// Draw the pot
 	potSide(0, 0, 0.5F, 3, 1, 0.15F);
 	rotateY(90);
@@ -52,6 +62,7 @@ void Pot::draw()
 	glColor3f(102.0F/255, 83.0F/255, 56.0F/255);
 	cuboid(0, 0.5F, 0, 3, 0.5F, 1);
 	glPopMatrix();
+	light.toggleSpecular(true);
 	
 	// Draw the stems
 	for (unsigned int i = 0; i < stems.size(); ++i)

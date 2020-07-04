@@ -1,4 +1,5 @@
 #include <iostream>
+#include <vector>
 #include <windows.h>
 #include <GL/glut.h>
 #include "util/camera.h"
@@ -10,6 +11,7 @@
 #include "model/Stem.h"
 #include "model/Light.h"
 #include "model/DaisyCenter.h"
+#include "model/Cloud.h"
 
 // Global attributes
 static const int WINDOW_WIDTH = 800;
@@ -18,6 +20,7 @@ static const int WINDOW_HEIGHT = 480;
 Light light(45);
 Camera camera(0, 3, 5);
 float movementSpeed = 0.1F;
+Pot pot(0, 0, 0);
 
 /**
  * Called when the window is resized.
@@ -33,7 +36,7 @@ void reshape(int window_width, int window_height)
 	glLoadIdentity();
 
 	glViewport(0, 0, window_width, window_height); // Set the viewport to be the entire window
-	gluPerspective(45.0F, aspect_ratio, 0.1F, 100);
+	gluPerspective(45.0F, aspect_ratio, 0.1F, 120);
 	glMatrixMode(GL_MODELVIEW); // Get back to MODELVIEW
 }
 
@@ -71,14 +74,13 @@ void display()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glMatrixMode(GL_MODELVIEW);
 	glClearColor(135.0/255*light.lightLevel, 206.0/255*light.lightLevel, 235.0/255*light.lightLevel, 1.0);
+	
 	camera.update();
 	light.update();
 	
-	// Set up flower pot
-	static Pot pot(0, 0, 0);
 	pot.beginDraw();
 	
-
+	light.toggleSpecular(false);
 	glPushMatrix();
 	setColor(DARK_GREEN);
 	glBegin(GL_QUADS);
@@ -87,33 +89,33 @@ void display()
 	glVertex3f(100, 0, 100);
 	glVertex3f(100, 0, -100);
 	glEnd();
-
-
 	glPopMatrix();
+	
+	static std::vector<Cloud*> clouds;
+	if (clouds.empty())
+	{
+		for (int i = 0; i < 30; ++i)
+			clouds.push_back(new Cloud(mh::irandom(-50, 50), 20, mh::irandom(-50, 50), mh::irandom(10, 20), mh::irandom(10, 20)));
+	}
+	for (unsigned int i = 0; i < clouds.size(); ++i)
+		clouds.at(i)->beginDraw();
+	
+	// Draw text
 	glDisable(GL_LIGHTING);
+	setColor(WHITE);
+	
 	std::string text;
-	//glTranslatef(0.0F,0.2F,0.0f);
-	text ="Press alt + F4 to leave";
-	setColor(WHITE);
-	drawText(text.data(), text.size(),0,82);
-
-	text ="WASD / arrow keys to move the camera position (hold <ctrl> to move slower)";
-	setColor(WHITE);
-	drawText(text.data(), text.size(),0,62);
-
-	text ="Use Mouse move around";
-
-	setColor(WHITE);
-	drawText(text.data(), text.size(),0,42);
-
-	text ="J and K keys to control sunlight position (there are night and days)";
-	setColor(WHITE);
-	drawText(text.data(), text.size(),0,22);
-
-	text ="Press M key to toggle daylight cycle";
-	setColor(WHITE);
-	drawText(text.data(), text.size(),0,2);
-
+	text = "Press Alt + F4 to quit";
+	drawText(text.data(), text.size(), 0, 82);
+	text = "WASD / arrow keys to move the camera (hold Ctrl to move slower)";
+	drawText(text.data(), text.size(), 0, 62);
+	text = "Use mouse to look around";
+	drawText(text.data(), text.size(), 0, 42);
+	text = "Hold J and K keys to control sunlight position";
+	drawText(text.data(), text.size(), 0, 22);
+	text = "Press M key to toggle daylight cycle";
+	drawText(text.data(), text.size(), 0, 2);
+	
 	glEnable(GL_LIGHTING);
 	glutSwapBuffers();
 }
@@ -132,7 +134,6 @@ void update(int index)
 void init()
 {
 	// Register callbacks
-
 	glutDisplayFunc(display);
 	glutTimerFunc(1000/60, update, 0);
 	glutReshapeFunc(reshape);

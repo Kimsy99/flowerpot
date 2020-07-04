@@ -1,8 +1,11 @@
 #include <cmath>
 #include <GL/glut.h>
 #include "Leaf.h"
+#include "Light.h"
 #include "../util/mathhelper.h"
 #include "../util/colors.h"
+
+extern Light light;
 
 Leaf::Leaf() : GLObject(0, 0, 0)
 {
@@ -11,6 +14,7 @@ Leaf::Leaf() : GLObject(0, 0, 0)
 
 void Leaf::draw()
 {
+	light.toggleSpecular(false);
 	const int DIVISIONS = 16;
 	glScalef(0.5F*growthFactor, 0.5F*growthFactor, 0.5F*growthFactor);
 	rotateY(rotation);
@@ -46,4 +50,5 @@ void Leaf::draw()
 	glPopMatrix();
 	
 	glFlush();
+	light.toggleSpecular(true);
 }
