@@ -6,7 +6,6 @@ class Light
 {
 		/** Angle of the light source. */
 		int shineAngle;
-		
 	public:
 		Light(float shineAngle) : shineAngle(shineAngle) {};
 		
@@ -14,7 +13,6 @@ class Light
 		 * Apply lighting to the world.
 		 */
 		void update() const;
-		
 		/**
 		 * Shift light source angle
 		 */

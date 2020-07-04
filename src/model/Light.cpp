@@ -4,7 +4,7 @@
 #include <GL/gl.h>
 #include "Light.h"
 #include "../util/mathhelper.h"
-
+#include "../util/colors.h"
 /*
  * light.cpp
  *
@@ -26,7 +26,6 @@ void Light::update() const
 		lightLevel = mh::cosd((shineAngle - 135)*2);
 	else
 		lightLevel = 0;
-	
 	// Reset the currently specified matrix as a unit matrix
 	const GLfloat light_ambient[] = {0.06F + lightLevel*0.2F, 0.06F + lightLevel*0.2F, 0.1F + lightLevel*0.16F, 1};
 	const GLfloat light_diffuse[] = {lightLevel, lightLevel, lightLevel, 1};
@@ -53,9 +52,11 @@ void Light::update() const
 	glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
 	glMaterialfv(GL_FRONT, GL_SHININESS, high_shininess);
 	
-//	glPushMatrix();
-//	glutSolidSphere(100, 20, 20);
-//	glPopMatrix();
+	glPushMatrix();
+		glTranslatef(mh::cosd(shineAngle)*100, mh::sind(shineAngle)*100, 0.0f);
+		setColor(SUN);
+		glutSolidSphere(10, 40, 40);
+	glPopMatrix();
 }
 
 void Light::shiftLighting(int dtheta)
