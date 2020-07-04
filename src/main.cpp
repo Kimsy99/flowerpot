@@ -137,10 +137,10 @@ void display()
 	
 	std::string text;
 	text ="Press alt + F4 to leave";
-	glDisable(GL_LIGHT0);
+	glDisable(GL_LIGHTING);
 	setColor(WHITE);
 	drawText(text.data(), text.size(),0,0);
-	
+	glEnable(GL_LIGHTING);
 	glutSwapBuffers();
 }
 

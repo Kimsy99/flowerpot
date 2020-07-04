@@ -4,7 +4,7 @@
 #include <GL/gl.h>
 #include "Light.h"
 #include "../util/mathhelper.h"
-
+#include "../util/colors.h"
 /*
  * light.cpp
  *
@@ -52,8 +52,9 @@ void Light::update() const
 	glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
 	glMaterialfv(GL_FRONT, GL_SHININESS, high_shininess);
 	glPushMatrix();
-
-		glutSolidSphere(90, 40, 400);
+		glTranslatef(mh::cosd(shineAngle)*100, mh::sind(shineAngle)*100, 0.0f);
+		setColor(SUN);
+		glutSolidSphere(10, 40, 40);
 	glPopMatrix();
 }
 

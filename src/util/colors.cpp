@@ -8,6 +8,7 @@ const int YELLOW = 3;
 const int DARK_GREEN = 4;
 const int WHITE = 5;
 const int BROWN = 6;
+const int SUN = 7;
 
 void setColor(int color_code)
 {
@@ -33,6 +34,9 @@ void setColor(int color_code)
 			break;
 		case BROWN:
 			glColor3f(173.0F/255, 101.0F/255, 0);
+			break;
+		case SUN:
+			glColor3f(253.0F/255, 184.0F/255,19.0F/255);
 			break;
 	}
 }
