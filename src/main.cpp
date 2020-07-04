@@ -3,6 +3,7 @@
 #include <GL/glut.h>
 #include "util/camera.h"
 #include "util/mathhelper.h"
+#include "util/colors.h"
 #include "controller/keycontroller.h"
 #include "controller/mousecontroller.h"
 #include "model/Pot.h"
@@ -14,20 +15,9 @@
 static const int WINDOW_WIDTH = 800;
 static const int WINDOW_HEIGHT = 480;
 
-/*
- * Initialize light
- */
 Light light(45);
-
-/*
- * Initialize Camera
- */
 Camera camera(0, 1, 5);
-
-/*
- * Initialize movement speed
- */
-float movementSpeed = 0.06F;
+float movementSpeed = 0.1F;
 
 /**
  * Called when the window is resized.
@@ -73,27 +63,31 @@ void drawSnowMan()
 	glColor3f(1, 0.5F, 0.5F);
 	glutSolidCone(0.08F, 0.5F, 10, 2);
 }
+
 /*
  * Draw Instruction text on screen
  */
-void drawText(const char *text, int length, int x, int y){
+void drawText(const char* text, int length, int x, int y)
+{
 	glMatrixMode(GL_PROJECTION);
-	double *matrix = new double[16];
+	double* matrix = new double[16];
 	glGetDoublev(GL_PROJECTION_MATRIX, matrix);
 	glLoadIdentity();
-	glOrtho(0,800,0,600,-5,5);
+	glOrtho(0, 800, 0, 600, -5, 5);
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 	glPushMatrix();
 	glLoadIdentity();
-	glRasterPos2i(x,y);
-	for(int i=0; i<length; i++){
+	glRasterPos2i(x, y);
+	for (int i = 0; i < length; i++)
+	{
 		glutBitmapCharacter(GLUT_BITMAP_9_BY_15, (int)text[i]);
 	}
 	glPopMatrix();
 	glMatrixMode(GL_PROJECTION);
 	glLoadMatrixd(matrix);
 	glMatrixMode(GL_MODELVIEW);
+	delete[] matrix;
 }
 
 /**
@@ -103,24 +97,17 @@ void display()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glMatrixMode(GL_MODELVIEW);
-
-	//start lighting
-	light.startLighting();
-	glLoadIdentity(); // Reset transformations
 	
-	//set up camera
-	camera.updateCamera();
+	camera.update();
+	light.update();
 	
-	//Set up flower pot
-	static Pot pot(0, 2, 0);
+	// Set up flower pot
+	static Pot pot(0, 0, 0);
 	pot.beginDraw();
 	
-	glPushMatrix();
-
-	//set up stem
-	Stem stem(0, 0.2F, 0, 0.05F, -5);
-	stem.showStem();
-	glPopMatrix();
+	// Set up stem
+//	static Stem stem(0, 0.2F, 0, 3, 0.3F);
+//	stem.beginDraw();
 	
 	glPushMatrix();
 	glColor3f(0.9f, 0.9f, 0.9f);
@@ -146,14 +133,14 @@ void display()
 	static DaisyCenter daisy(0, 3, 0);
 	daisy.beginDraw();
 	
-
 	glPopMatrix();
-
-
+	
 	std::string text;
-	text ="Press alt + F4 to leave \n Move Cursor to move";
+	text ="Press alt + F4 to leave";
+	glDisable(GL_LIGHT0);
+	setColor(WHITE);
 	drawText(text.data(), text.size(),0,0);
-
+	
 	glutSwapBuffers();
 }
 
@@ -192,10 +179,10 @@ void init()
 	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST); // Nice perspective corrections
 	glClearDepth(1.0F); // Set background depth to farthest
 	glEnable(GL_COLOR_MATERIAL);
-	glEnable(GL_LIGHTING); //Enable lighting
-	glEnable(GL_LIGHT0); //Enable light #0
-	glEnable(GL_LIGHT1); //Enable light #1
-	glEnable(GL_NORMALIZE); //Automatically normalize normals
+	glEnable(GL_LIGHTING); // Enable lighting
+	glEnable(GL_LIGHT0); // Enable light #0
+	glEnable(GL_LIGHT1); // Enable light #1
+	glEnable(GL_NORMALIZE); // Automatically normalize normals
 }
 
 int main(int argc, char* argv[])

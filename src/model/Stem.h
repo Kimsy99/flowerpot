@@ -3,22 +3,17 @@
 #include <GL/glut.h>
 #include "GLObject.h"
 
-class Stem
+class Stem : public GLObject
 {
-		float xTrans;
-		float yTrans;
-		float zTrans;
-		float height;
-		float rotateAngle;
-	public:
-		Stem(float xTrans, float yTrans, float zTrans, float height, float rotateAngle)
-		{
-			this->xTrans = xTrans;
-			this->yTrans = yTrans;
-			this->zTrans = zTrans;
-			this->height = height;
-			this->rotateAngle = rotateAngle;
-		}
+		const int stemPartCount;
+		const float stemPartHeight;
+		float curvingDirection = 30;
+		float curvingAngle = 5;
 		
-		void showStem() const;
+	public:
+		Stem(float x, float y, float z, int stemPartCount, float stemPartHeight)
+		 : GLObject(x, y, z), stemPartCount(stemPartCount), stemPartHeight(stemPartHeight) {}
+		
+	protected:
+		void draw() override;
 };

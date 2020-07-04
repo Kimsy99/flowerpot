@@ -43,7 +43,7 @@ namespace mh
 			cout << "Exception in irandom(min, max) : min must not be greater than max" << endl;
 			exit(1153);
 		}
-		//Initialize our mersenne twister with random seed
+		// Initialize our mersenne twister with random seed
 		static mt19937 mersenne(static_cast<unsigned int>(std::time(nullptr)));
 		uniform_int_distribution<> rand(min, max);
 		return rand(mersenne);
@@ -59,7 +59,7 @@ namespace mh
 			cout << "Exception in frandom(min, max) : min must not be greater than max" << endl;
 			exit(1153);
 		}
-		//Initialize our mersenne twister with random seed
+		// Initialize our mersenne twister with random seed
 		static mt19937 mersenne(static_cast<unsigned int>(std::time(nullptr)));
 		uniform_real_distribution<> rand(min, max);
 		return rand(mersenne);
@@ -96,5 +96,13 @@ namespace mh
 	float cosd(float degrees)
 	{
 		return cos(rad(degrees));
+	}
+	
+	/**
+	 * Returns the tangent of an angle in degrees.
+	 */
+	float tand(float degrees)
+	{
+		return tan(rad(degrees));
 	}
 }
