@@ -10,6 +10,7 @@
 #include "model/Stem.h"
 #include "model/Light.h"
 #include "model/DaisyCenter.h"
+#include "util/Shadow.h"
 
 // Global attributes
 static const int WINDOW_WIDTH = 800;
@@ -107,7 +108,7 @@ void display()
 	
 	// Set up stem
 //	static Stem stem(0, 0.2F, 0, 3, 0.3F);
-//	stem.beginDraw();
+//	stem.beginDraw();+
 	
 	glPushMatrix();
 	glColor3f(0.9f, 0.9f, 0.9f);
@@ -117,7 +118,9 @@ void display()
 	glVertex3f(100, 0, 100);
 	glVertex3f(100, 0, -100);
 	glEnd();
-	
+
+
+
 	// Draw 36 snowmen
 	for (int i = -3; i < 3; i++)
 	{
@@ -134,7 +137,18 @@ void display()
 	daisy.beginDraw();
 	
 	glPopMatrix();
-	
+	glPushMatrix();
+
+		//set up shadow
+//		Shadow shadow;
+//		float lightPosition[4];
+//		for(int i=0; i<4; ++i){
+//			lightPosition[i] = *(light.getLightPosition()+i);
+//		}
+//		float groundPosition[4] = {0.0,0.0,0.0,0.0};
+//		shadow.createShadow(groundPosition, lightPosition);
+
+	glPopMatrix();
 	std::string text;
 	text ="Press alt + F4 to leave";
 	glDisable(GL_LIGHTING);
