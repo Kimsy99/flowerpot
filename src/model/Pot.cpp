@@ -1,10 +1,13 @@
 #include <GL/glut.h>
 #include "Pot.h"
+#include "Stem.h"
 #include "../util/colors.h"
 
 Pot::Pot(float x, float y, float z) : GLObject(x, y, z)
 {
-	stems.push_back(new Stem(x, y + 3, z, 10, 0.1F));
+	stems.push_back(new Stem(0, 0.75F, 0, 14, 0.15F));
+	stems.push_back(new Stem(1, 0.75F, 0.2F, 14, 0.125F));
+	stems.push_back(new Stem(-1, 0.75F, 0.1F, 14, 0.13F));
 }
 
 void cuboid(float tx, float ty, float tz, float width, float height, float across)
@@ -34,6 +37,7 @@ void potSide(float tx, float ty, float tz, float width, float height, float acro
 
 void Pot::draw()
 {
+	glPushMatrix();
 	// Draw the pot
 	potSide(0, 0, 0.5F, 3, 1, 0.15F);
 	rotateY(90);
@@ -47,10 +51,9 @@ void Pot::draw()
 	rotateY(90);
 	glColor3f(102.0F/255, 83.0F/255, 56.0F/255);
 	cuboid(0, 0.5F, 0, 3, 0.5F, 1);
+	glPopMatrix();
 	
 	// Draw the stems
 	for (unsigned int i = 0; i < stems.size(); ++i)
-	{
-		
-	}
+		stems.at(i)->beginDraw();
 }

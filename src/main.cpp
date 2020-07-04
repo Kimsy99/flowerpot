@@ -16,7 +16,7 @@ static const int WINDOW_WIDTH = 800;
 static const int WINDOW_HEIGHT = 480;
 
 Light light(45);
-Camera camera(0, 1, 5);
+Camera camera(0, 3, 5);
 float movementSpeed = 0.1F;
 
 /**
@@ -35,7 +35,6 @@ void reshape(int window_width, int window_height)
 	glViewport(0, 0, window_width, window_height); // Set the viewport to be the entire window
 	gluPerspective(45.0F, aspect_ratio, 0.1F, 100);
 	glMatrixMode(GL_MODELVIEW); // Get back to MODELVIEW
-//	light.startLighting();
 }
 
 void drawSnowMan()
@@ -105,12 +104,8 @@ void display()
 	static Pot pot(0, 0, 0);
 	pot.beginDraw();
 	
-	// Set up stem
-//	static Stem stem(0, 0.2F, 0, 3, 0.3F);
-//	stem.beginDraw();
-	
 	glPushMatrix();
-	glColor3f(0.9f, 0.9f, 0.9f);
+	setColor(DARK_GREEN);
 	glBegin(GL_QUADS);
 	glVertex3f(-100, 0, -100);
 	glVertex3f(-100, 0, 100);
@@ -129,9 +124,6 @@ void display()
 			glPopMatrix();
 		}
 	}
-	
-	static DaisyCenter daisy(0, 3, 0);
-	daisy.beginDraw();
 	
 	glPopMatrix();
 	

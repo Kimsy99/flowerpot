@@ -66,6 +66,18 @@ namespace mh
 	}
 	
 	/**
+	 * Clamps between two values.
+	 */
+	float clamp(float in, float min, float max)
+	{
+		if (in < min)
+			in = min;
+		else if (in > max)
+			in = max;
+		return in;
+	}
+	
+	/**
 	 * Returns the greatest common divisor of two numbers.
 	 */
 	int gcd(int a, int b)
@@ -104,5 +116,22 @@ namespace mh
 	float tand(float degrees)
 	{
 		return tan(rad(degrees));
+	}
+	
+	/**
+	 * Sigmoid function. Large inputs will output closer to 1, while large negative inputs will output
+	 * closer to 0. 
+	 */
+	float sigmoid(float x)
+	{
+		return 1/(1 + exp(x));
+	}
+	
+	/**
+	 * Easing function that maps from [0, 1] to [0, 1] which smoothens at the end.
+	 */
+	float easeOutCubic(float x)
+	{
+		return 1 - pow(1 - x, 3);
 	}
 }

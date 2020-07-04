@@ -2,7 +2,8 @@
 
 #include <vector>
 #include "GLObject.h"
-#include "Stem.h"
+
+class Stem;
 
 class Pot : public GLObject
 {
